@@ -2,7 +2,7 @@
 
 - Date: 2026-09-11
 - From: mid `plans/chatbot/progress-log.md` ("Switch Agent?" 최종 검증 라운드)
-- Status: candidate
+- Status: promoted → rules/grok-headless-review-caveat.md (같은 날 2회 더 재현되어 승격)
 
 ## Fact / decision
 
