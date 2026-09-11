@@ -7,5 +7,6 @@
 3. 앱 작업과 섞지 않는다. 앱 규칙은 앱 `AGENTS.md` 가 우선.
 4. 시크릿·실명·잔여%·프롬프트 원문을 쓰지 않는다.
 5. 커밋·푸시는 사용자 지시 후에만. 앱 레포 커밋과 섞지 않는다.
+6. 긴 세션·고비용 usage·context exhaustion 징후가 있으면 `skills/context-session-budget/SKILL.md` 를 먼저 적용한다.
 
 연결: `docs/connect-grok.md`, `docs/connect-agents.md`.

@@ -18,6 +18,7 @@ Grok 전용 설정은 `connect-grok.md`. 여기는 **미러/플러그인 없이*
    - `.../harness-history/README.md`
    - `.../harness-history/rules/` (전부)
    - `.../harness-history/skills/session-start-check/SKILL.md`
+   - 긴 세션/usage/cache/context 이슈가 있으면 `.../harness-history/skills/context-session-budget/SKILL.md`
 3. 앱 `AGENTS.md` + 활성 `progress-log`
 4. (선택) README의 해당 에이전트 프롬프트를 세션에 붙이기
 
@@ -39,3 +40,12 @@ Grok 전용 설정은 `connect-grok.md`. 여기는 **미러/플러그인 없이*
 - 앱 규칙과 겹치면 앱 우선. 충돌 시 harness 를 고치지 않음
 - 건드릴 파일에 harness 경로가 없고 승격 지시가 없으면 harness 편집 금지 (승격 후보 한 줄만)
 - 상세 프롬프트: README «Codex» 절
+
+## Long sessions
+
+- context 사용률 70% 이상: warning
+- 80% 이상: checkpoint
+- 85% 이상: rollover 준비
+- 92% 이상: hard rollover
+- handoff에는 압축 요약만 전달하고, 과거 대화 전체·긴 tool output·해결된 오류 반복은 전달하지 않음
+- usage/cost/context 값은 `ACTUAL|ESTIMATED|UNAVAILABLE`와 `billingMode`를 함께 표시

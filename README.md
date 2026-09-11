@@ -79,6 +79,7 @@
 시작:
 - <HARNESS>에서 git pull 한다 (실패하면 이유를 말하고 멈춘다)
 - <HARNESS>/README.md, <HARNESS>/rules/ 전부, <HARNESS>/skills/session-start-check/SKILL.md 를 읽는다 (rules 는 자동 로드되지 않음 — 반드시 직접 연다)
+- 긴 세션, context 70% 이상, cache read 폭증, provider fallback/rollover 이슈가 있으면 <HARNESS>/skills/context-session-budget/SKILL.md 도 읽는다
 - LEARNING 승격 요청이면 <HARNESS>/skills/promote-learning/SKILL.md 도 읽는다
 - 검수 요청이면 <HARNESS>/skills/slice-review-checklist/SKILL.md 도 읽는다
 - 앱에서 일하면 <APP>/AGENTS.md 와 활성 progress-log 만 더 읽는다
@@ -94,6 +95,7 @@
 - 미확정 → <HARNESS>/learnings/
 - 이미 있으면 새 파일 말고 기존에 합친다
 - 키·토큰·실명·잔여%·프롬프트 원문·내부 메신저는 쓰지 않는다
+- usage/cost/context는 원문·잔여율을 붙이지 말고 ACTUAL|ESTIMATED|UNAVAILABLE, billingMode, costUsd(null 가능)로만 정규화한다
 - <APP> 과 <HARNESS> 는 별도 git 이다. status/diff/commit/push 는 레포별로 분리하고, 제안 시 레포 경로를 명시한다
 - 작성 후 diff 요약만 보여 준다. 커밋·푸시는 사용자가 시킨 뒤에만
 - 작성자 표기는 [Grok|Claude|Codex|담당-라벨] YYYY-MM-DD: (실명 금지)
@@ -115,6 +117,7 @@
 ```text
 위 «공통»을 따른다. <HARNESS> · <APP> 경로를 사용한다.
 - cwd 가 <APP> 이어도 팀 핸드북은 <HARNESS> 다. 세션 초에 README·rules·session-start-check 를 절대경로로 직접 읽는다
+- cache read 폭증, repeated cache rebuild, oversized session, repeated long tool output 이 보이면 context-session-budget 기준으로 checkpoint/rollover를 판단한다
 - .claude 미러는 없어도 된다. 있어도 앱 레포에 harness 파일을 커밋하지 않는다
 - <APP>/AGENTS.md 를 반드시 읽는다. CLAUDE.md 부재를 규칙 없음으로 해석하지 않는다
 - <APP> 과 <HARNESS> 커밋을 섞지 않는다. 커밋 제안 시 어느 레포인지 경로로 명시한다
@@ -125,6 +128,7 @@
 ```text
 위 «공통»을 따른다. <HARNESS> · <APP> 경로를 사용한다.
 - 기본은 검수. 핸드오프에 구현 담당=Codex 일 때만 구현 모드.
+- context window 사용률·session age·반복 repository scan·reasoning-heavy 누적을 확인하고 80% checkpoint, 85% rollover, 92% hard rollover를 적용한다
 - 검수: <HARNESS>/skills/slice-review-checklist 를 따른다. diff만. 재구현 금지.
 - 판정 한 줄: 통과|부분통과|반려 + 수정 목록. 근거에 rules/<file> 또는 <APP>/AGENTS.md / 핸드오프 항목명을 붙인다.
 - <HARNESS> 와 <APP> 규칙이 충돌하면 <APP> 우선. 사유에 «앱 우선, harness는 참고»를 쓰고 harness 를 고치지 않는다.
@@ -137,6 +141,7 @@
 ```text
 위 «공통»을 따른다. <HARNESS> · <APP> 경로를 사용한다.
 - 팀 핸드북은 <HARNESS>, 앱 코드는 <APP>. docs/connect-agents.md 를 본다.
+- provider가 실제로 제공하지 않는 usage/context/cost 값은 만들지 말고 UNAVAILABLE로 둔다.
 - 팀 공통만 harness에 쓴다. 커밋은 레포별.
 ```
 
