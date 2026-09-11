@@ -48,6 +48,11 @@
 앱 작업 로그(progress-log 등)에 같은 실수·결정이 반복되면, 그 내용만 골라
 이 레포의 `skills/` 또는 `rules/`로 올립니다. 절차: `skills/promote-learning/SKILL.md`.
 
+## 위치·공간 변화
+
+새 PC, 재택/사내망, 자리 이동, 세션·담당 교대에도 같은 기준으로 이어가려면
+`docs/location-and-space.md` 를 읽는다 (온보딩, 망별 허용 표, catchup 템플릿).
+
 ---
 
 ## AI 에이전트용 프롬프트

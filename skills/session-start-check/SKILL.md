@@ -11,6 +11,7 @@ user-invocable: true
 
 공유 체크아웃에서 코딩·검수에 들어가기 **전에** 아래만 확인한다. mid 앱 전용 세부 규칙은
 해당 저장소 `AGENTS.md` / `plans/agent-collab-prompt.txt`가 우선한다.
+새 PC·망·자리·세션이 바뀐 뒤에는 `docs/location-and-space.md` 도 참고한다.
 
 ## Steps
 
