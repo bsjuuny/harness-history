@@ -1,0 +1,22 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Local secrets — never commit
+.env
+.env.*
+*.pem
+*.p12
+*.key
+*secret*
+*credentials*
+**/mcp.local.toml
+**/mcp.local.json
+
+# Machine-specific
+.grok/
+.claude/
+.cursor/

@@ -1,0 +1,24 @@
+# Team MCP inventory — EXAMPLE ONLY
+# Copy to a local file (not committed) and fill real values via env / secret store.
+# Do not put tokens, API keys, or passwords in this repo.
+
+# --- Grok Build (~/.grok/config.toml) shape (illustrative) ---
+# Each member enables only the servers they need.
+
+# [mcp_servers.example_http]
+# command = "npx"
+# args = ["-y", "mcp-remote", "https://example.invalid/mcp"]
+# # Required env key NAMES (values stay on the machine / secret manager):
+# #   EXAMPLE_API_TOKEN
+
+# [mcp_servers.example_stdio]
+# command = "uvx"
+# args = ["some-mcp-server"]
+# # Required env key NAMES:
+# #   EXAMPLE_BASE_URL
+# #   EXAMPLE_API_KEY
+
+# --- How to use ---
+# 1. List team-approved MCP servers here as comments or disabled stubs.
+# 2. Document required env KEY NAMES only.
+# 3. Each developer sets values locally; never commit mcp.local.toml.
