@@ -32,6 +32,12 @@ codex exec --skip-git-repo-check -s read-only -C <dir> -o <output-file> "<prompt
 - `-s read-only`로 조사/리뷰 목적 제한 가능. `-o <file>`로 최종 답변만 깔끔히 파일로
   받을 수 있음(중간 reasoning/tool trace는 stdout에 섞여 나옴 — 최종 답변만 필요하면
   stdout은 로그 파일로 리다이렉트하고 `-o` 결과만 읽는다).
+- **프롬프트를 CLI 인자로 직접 넘기면 700줄 안팎(diff를 통째로 넣는 리뷰 요청 등)에서
+  Windows에서 `Argument list too long`로 죽는다**(관측: 751줄짜리 프롬프트에서 재현,
+  435줄짜리는 괜찮았음 — 정확한 임계값은 그 사이 어딘가). 큰 프롬프트(특히 diff를
+  통째로 붙이는 리뷰 요청)는 인자 대신 stdin으로 넘긴다:
+  `codex exec --skip-git-repo-check -s read-only -C <dir> -o <output-file> < prompt.txt`
+  (프롬프트 인자를 생략하면 stdin에서 읽음).
 
 ### Grok
 
