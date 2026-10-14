@@ -43,9 +43,10 @@ Grok 전용 설정은 `connect-grok.md`. 여기는 **미러/플러그인 없이*
 
 ## Long sessions
 
-- context 사용률 70% 이상: warning
-- 80% 이상: checkpoint
-- 85% 이상: rollover 준비
-- 92% 이상: hard rollover
+- 비율과 토큰 수 중 먼저 닿는 쪽을 적용 (1M 창에서는 토큰 수가 먼저 닿음)
+- context 사용률 70% 또는 20만 토큰 이상: warning
+- 80% 또는 25만 이상: checkpoint
+- 85% 또는 30만 이상: rollover 준비
+- 92% 또는 40만 이상: hard rollover
 - handoff에는 압축 요약만 전달하고, 과거 대화 전체·긴 tool output·해결된 오류 반복은 전달하지 않음
 - usage/cost/context 값은 `ACTUAL|ESTIMATED|UNAVAILABLE`와 `billingMode`를 함께 표시

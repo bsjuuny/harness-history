@@ -17,12 +17,23 @@ router, provider abstraction, log 구조가 있으면 먼저 재사용한다.
 
 ## Thresholds
 
-| Level | Threshold | Action |
-|------|-----------|--------|
-| warning | 70% | 사용자에게 세션이 커지고 있음을 알리고 긴 출력·반복 스캔을 줄인다. |
-| checkpoint | 80% | checkpoint 요약을 남긴다. |
-| rollover | 85% | 새 세션 전환을 준비한다. 이전 대화 전체를 넘기지 않는다. |
-| hardLimit | 92% | 새 작업을 시작하지 말고 rollover 한다. |
+| Level | 비율 | 토큰 수 | Action |
+|------|------|---------|--------|
+| warning | 70% | 20만 | 사용자에게 세션이 커지고 있음을 알리고 긴 출력·반복 스캔을 줄인다. |
+| checkpoint | 80% | 25만 | checkpoint 요약을 남긴다. |
+| rollover | 85% | 30만 | 새 세션 전환을 준비한다. 이전 대화 전체를 넘기지 않는다. |
+| hardLimit | 92% | 40만 | 새 작업을 시작하지 말고 rollover 한다. |
+
+비율과 토큰 수 중 **먼저 닿는 쪽**을 적용한다.
+
+- 호출 한 번의 비용은 창 크기 대비 비율이 아니라 매번 다시 읽는 컨텍스트 토큰 수에 비례한다.
+  1M 창에서 비율만 보면 warning이 70만 토큰에야 걸린다. 200k 창이면 비율이 먼저 닿는다.
+- 관측(2026-10-14, 로컬 transcript 집계, ESTIMATED): 1M 창 세션 하나가 컨텍스트 중간값 약 47만·최대
+  약 97만 토큰으로 1,500회 넘게 호출됐고, 대부분 비율 warning선 아래였다. 그 세션 비용의 대부분은
+  새로 쓴 출력이 아니라 큰 컨텍스트를 매 호출 다시 읽은 cache read였다.
+- 하위 에이전트(sub-agent)도 각자 같은 기준을 적용한다. 병렬로 띄우면 비용이 개수만큼 곱해진다.
+- 에이전트는 매 턴 자기 컨텍스트 크기를 확인하지 않는다. 작업 단위가 끝날 때와 하위 에이전트를
+  띄우기 전에 확인한다(Claude Code: `/context` 또는 데스크톱 앱 입력창 표시, ACTUAL).
 
 값을 실제로 알 수 없으면 추정치를 사실처럼 쓰지 않는다.
 
@@ -49,7 +60,7 @@ Claude:
 
 Codex:
 - context window 사용률, session age, reasoning-heavy task 누적, 반복 repository scan을 확인한다.
-- 80% 이상이면 checkpoint, 85% 이상이면 rollover 준비, 92% 이상이면 hard rollover로 본다.
+- 80%·25만 토큰 중 먼저 닿으면 checkpoint, 85%·30만이면 rollover 준비, 92%·40만이면 hard rollover로 본다.
 
 Grok:
 - 현재 integration에서 실제 제공하는 usage/status만 사용한다.

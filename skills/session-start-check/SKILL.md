@@ -24,7 +24,7 @@ user-invocable: true
    - clone 이 없으면 코딩에 들어가지 말고 경로/clone 을 요청한다.
    - clone 이 있으면 그 디렉터리에서 `git pull`. 실패하면 이유를 말하고 **코딩을 시작하지 않는다**.
    - `rules/` 전부와 (역할에 맞게) 필요 스킬을 **직접** 읽는다. `rules/` 는 도구가 자동으로 안 넣는다.
-   - 긴 세션 재개, 70% 이상 context, cache read 폭증, provider fallback 이슈가 있으면
+   - 긴 세션 재개, context 70% 또는 20만 토큰 이상, cache read 폭증, provider fallback 이슈가 있으면
      `skills/context-session-budget/SKILL.md` 도 읽는다.
    - 앱 레포도 작업 전에 pull 여부를 확인한다 (다른 세션 커밋을 놓치지 않기).
 
